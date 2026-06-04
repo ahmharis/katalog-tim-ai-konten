@@ -243,13 +243,14 @@
             </div>
             <h2 class="login-title">Akses Eksklusif</h2>
             <p class="login-desc">Masukkan email yang telah kamu daftarkan. Sekarang kamu punya asisten AI Satset, semoga bermanfaat!</p>
-            <input type="email" id="emailInput" class="email-input" placeholder="contoh@email.com" onkeypress="if(event.key === 'Enter') window.handleLogin()">
-            <button id="loginBtn" class="btn-login" onclick="window.handleLogin()">Masuk Sekarang</button>
+            <input type="email" id="emailInput" class="email-input" placeholder="contoh@email.com" onkeypress="if(event.key === 'Enter') handleLogin()">
+            <button id="loginBtn" class="btn-login" onclick="handleLogin()">Masuk Sekarang</button>
             <p id="loginError" class="login-error"></p>
         </div>
     </div>
 
-    <button class="theme-toggle" id="themeBtn" title="Ganti Tema">
+    <!-- Tombol Tema: Dipaku onclick -->
+    <button class="theme-toggle" id="themeBtn" title="Ganti Tema" onclick="toggleTheme()">
         <svg id="iconSun" style="display:none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1zm18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1zM11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1zm0 18v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1zM5.99 4.58a.996.996 0 00-1.41 0 .996.996 0 000 1.41l1.29 1.29c.39.39 1.02.39 1.41 0 .39-.39.39-1.02 0-1.41L5.99 4.58zm12.37 12.37a.996.996 0 00-1.41 0 .996.996 0 000 1.41l1.29 1.29c.39.39 1.02.39 1.41 0 .39-.39.39-1.02 0-1.41l-1.29-1.29zm1.41-13.78c-.39-.39-1.02-.39-1.41 0-.39.39-.39 1.02 0 1.41l1.29 1.29c.39.39 1.02.39 1.41 0 .39-.39.39-1.02 0-1.41l-1.29-1.29zM7.28 17.65c-.39-.39-1.02-.39-1.41 0-.39.39-.39 1.02 0 1.41l1.29 1.29c.39.39 1.02.39 1.41 0 .39-.39.39-1.02 0-1.41l-1.29-1.29z"/></svg>
         <svg id="iconMoon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9c0-.46-.04-.92-.1-1.36-.98 1.37-2.58 2.26-4.4 2.26-3.03 0-5.5-2.47-5.5-5.5 0-1.82.89-3.42 2.26-4.4-.44-.06-.9-.1-1.36-.1z"/></svg>
     </button>
@@ -292,8 +293,10 @@
                     <div class="chat-area" id="chatArea"></div>
                     <div class="chat-actions" id="chatActions"></div>
                     <div class="chat-input-wrapper">
-                        <input type="text" id="userInput" class="chat-input" placeholder="Tanya Aimin (misal: 'bikin naskah')...">
-                        <button class="send-btn" id="sendBtn" title="Kirim"><svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg></button>
+                        <!-- Kolom Chat Aimin: Dipaku onkeypress -->
+                        <input type="text" id="userInput" class="chat-input" placeholder="Tanya Aimin (misal: 'bikin naskah')..." onkeypress="if(event.key === 'Enter') handleSend()">
+                        <!-- Tombol Kirim Aimin: Dipaku onclick -->
+                        <button class="send-btn" id="sendBtn" title="Kirim" onclick="handleSend()"><svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg></button>
                     </div>
                 </div>
 
@@ -303,7 +306,8 @@
                             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
                             Alat Terakhir
                         </div>
-                        <button id="clearHistoryBtn" class="btn-clear-history">Hapus</button>
+                        <!-- Tombol Hapus Riwayat: Dipaku onclick -->
+                        <button id="clearHistoryBtn" class="btn-clear-history" onclick="clearHistory()">Hapus</button>
                     </div>
                     <div class="history-list" id="historyList"></div>
                 </div>
@@ -312,7 +316,8 @@
             <div class="main-content-section">
                 <div class="search-container animate-fade-in" style="animation-delay: 0.2s;">
                     <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-                    <input type="text" id="searchInput" class="search-input" placeholder="Cari alat AI... (Cth: Copywriting, Foto Produk)">
+                    <!-- Kolom Pencarian: Dipaku oninput -->
+                    <input type="text" id="searchInput" class="search-input" placeholder="Cari alat AI... (Cth: Copywriting, Foto Produk)" oninput="renderCatalog(this.value.trim().toLowerCase())">
                 </div>
                 <div class="catalog-container" id="catalog-container"></div>
                 <div id="noResults" class="no-results glass-panel animate-fade-in">
@@ -326,6 +331,7 @@
     <div class="site-footer">&copy; 2026 TIM AI Konten @ai.satset.</div>
 
     <script>
+        // === 1. SYSTEM UTILITIES ===
         const StorageHelper = {
             get: function(key) { try { return localStorage.getItem(key); } catch(e) { return null; } },
             set: function(key, val) { try { localStorage.setItem(key, val); } catch(e) {} },
@@ -334,7 +340,11 @@
 
         const whatsappLink = "https://wa.me/6285387745554"; 
         const pedomanLink = "https://bit.ly/PedomanKatalog"; 
+        const HISTORY_KEY = 'aimin_tool_history';
+        let isTyping = false;
 
+        // === 2. DATA ALAT KATALOG ===
+        // Koma yang sempat hilang di Divisi Editing sudah ditambahkan!
         const toolsData = [
             {
                 title: "DIVISI ANALIS", icon: "🔍", 
@@ -373,124 +383,6 @@
                 ]
             }
         ];
-
-        function renderCatalog(filterText = "") {
-            const mainContainer = document.getElementById('catalog-container');
-            const noResults = document.getElementById('noResults');
-            mainContainer.innerHTML = ''; 
-            let hasResults = false;
-            let delayCounter = 3;
-
-            toolsData.forEach(section => {
-                const filteredTools = section.tools.filter(tool => 
-                    tool.name.toLowerCase().includes(filterText) || tool.desc.toLowerCase().includes(filterText)
-                );
-
-                if (filteredTools.length > 0) {
-                    hasResults = true;
-                    const sectionDiv = document.createElement('div');
-                    sectionDiv.className = `tool-category-wrapper animate-fade-in`;
-                    sectionDiv.style.animationDelay = `${delayCounter * 0.1}s`;
-                    delayCounter++;
-
-                    const headerIconHtml = `<span class="emoji-icon">${section.icon}</span>`;
-                    const headerHtml = `<div class="tool-category-header"><div class="tool-icon-wrapper" style="width: 44px; height: 44px; border-radius: 14px;">${headerIconHtml}</div><span>${section.title}</span></div>`;
-                    let cardsHtml = '<div class="tools-grid">';
-                    
-                    filteredTools.forEach(tool => {
-                        if (tool.addSeparatorBefore) {
-                            cardsHtml += `<div style="grid-column: 1 / -1; height: 1px; background: linear-gradient(90deg, transparent, var(--card-border-highlight), transparent); margin: 20px 0; opacity: 0.6;"></div>`;
-                        }
-                        const toolIconHtml = `<span class="emoji-icon">${tool.icon}</span>`;
-                        cardsHtml += `
-                            <div class="ai-tool-card" data-name="${tool.name}" data-icon="${tool.icon}" data-link="${tool.link}">
-                                <div class="tool-content-top">
-                                    <div class="tool-icon-wrapper">${toolIconHtml}</div>
-                                    <div class="flex-1"><h3 class="tool-name">${tool.name}</h3><p class="tool-desc">${tool.desc}</p></div>
-                                </div>
-                                <div class="btn-access"><span>Akses Alat</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></div>
-                            </div>
-                        `;
-                    });
-                    cardsHtml += '</div>';
-                    sectionDiv.innerHTML = headerHtml + cardsHtml;
-                    mainContainer.appendChild(sectionDiv);
-                }
-            });
-            noResults.style.display = hasResults ? 'none' : 'block';
-        }
-
-        function openTool(name, icon, link) { 
-            saveToolHistory(name, icon, link); 
-            if(link) window.open(link, '_blank'); 
-        }
-
-        function loadHistory() { 
-            renderHistory(JSON.parse(StorageHelper.get(HISTORY_KEY)) || []); 
-        }
-        
-        function saveToolHistory(name, icon, link) {
-            let history = JSON.parse(StorageHelper.get(HISTORY_KEY)) || [];
-            history = history.filter(item => item.name !== name);
-            history.unshift({ name, icon, link });
-            if (history.length > 5) history.pop();
-            StorageHelper.set(HISTORY_KEY, JSON.stringify(history));
-            renderHistory(history);
-        }
-
-        function renderHistory(history) {
-            const historySection = document.getElementById('history-section');
-            const historyList = document.getElementById('historyList');
-            historyList.innerHTML = '';
-            if (history.length === 0) { historySection.style.display = 'none'; return; }
-            historySection.style.display = 'block';
-            history.forEach(item => {
-                const a = document.createElement('a');
-                a.href = "javascript:void(0)"; 
-                a.classList.add('history-item');
-                const historyIconHtml = `<span class="emoji-icon" style="font-size: 1rem; filter: none;">${item.icon}</span>`;
-                a.innerHTML = `${historyIconHtml} ${item.name}`;
-                a.addEventListener('click', () => openTool(item.name, item.icon, item.link));
-                historyList.appendChild(a);
-            });
-        }
-
-        function getGuideButtonHTML() {
-            return `<a href="${pedomanLink}" target="_blank" class="guide-btn"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>Buku Pedoman</a>`;
-        }
-
-        function getAdminButtonHTML() {
-            return `<a href="${whatsappLink}" target="_blank" class="wa-btn"><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>Hubungi via WhatsApp</a>`;
-        }
-
-        function addMessage(text, sender) {
-            const chatArea = document.getElementById('chatArea');
-            const msgDiv = document.createElement('div');
-            msgDiv.classList.add('chat-bubble', sender === 'bot' ? 'chat-bot' : 'chat-user');
-            msgDiv.innerHTML = text; chatArea.appendChild(msgDiv); chatArea.scrollTop = chatArea.scrollHeight;
-        }
-
-        function showTypingIndicator() {
-            if (isTyping) return;
-            isTyping = true;
-            const chatArea = document.getElementById('chatArea');
-            const indicator = document.createElement('div'); indicator.id = 'typingIndicator'; indicator.className = 'typing-indicator';
-            indicator.innerHTML = '<div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div>';
-            chatArea.appendChild(indicator); chatArea.scrollTop = chatArea.scrollHeight;
-        }
-        
-        function removeTypingIndicator() { const ind = document.getElementById('typingIndicator'); if (ind) ind.remove(); isTyping = false; }
-        function clearActions() { document.getElementById('chatActions').innerHTML = ''; }
-
-        function showInitialOptions() {
-            clearActions();
-            const chatActions = document.getElementById('chatActions');
-            [{text: "Jelaskan Fitur", action: "explain"}, {text: "Buku Pedoman", action: "guide"}, {text: "Hubungi Admin", action: "contact"}].forEach(opt => {
-                const btn = document.createElement('button'); btn.classList.add('action-btn'); btn.innerText = opt.text;
-                btn.addEventListener('click', () => handleAction(opt.action, opt.text)); 
-                chatActions.appendChild(btn);
-            });
-        }
 
         const botKnowledge = [
             { keywords: ["aku siapa", "siapa aku", "namaku siapa", "kenal aku", "nama aku"], responses: ["Loh, kakak kan <b>{nama}</b>! Masa lupa sama nama sendiri sih? 😂 Aimin catat terus kok data bos Aimin yang satu ini.", "Kakak adalah <b>{nama}</b>, kreator super yang lagi siap sat-set bikin konten! 🔥"] },
@@ -542,6 +434,171 @@
             "Aimin bingung deh kak. 🙈 Daripada nyasar, yuk kita manfaatin alat-alat di Katalog ini! Kalo {nama} kebingungan cara pakainya, bisa baca pedoman atau hubungi Admin ya."
         ];
 
+        // === 3. FUNGSI TEMA ===
+        function toggleTheme() {
+            const iconSun = document.getElementById('iconSun');
+            const iconMoon = document.getElementById('iconMoon');
+            if (document.documentElement.getAttribute('data-theme') === 'light') {
+                document.documentElement.removeAttribute('data-theme');
+                StorageHelper.set('theme', 'dark');
+                if(iconSun) iconSun.style.display = 'none'; 
+                if(iconMoon) iconMoon.style.display = 'block';
+            } else {
+                document.documentElement.setAttribute('data-theme', 'light');
+                StorageHelper.set('theme', 'light');
+                if(iconSun) iconSun.style.display = 'block'; 
+                if(iconMoon) iconMoon.style.display = 'none';
+            }
+        }
+        
+        // Pengecekan Tema Saat Pemuatan
+        window.onload = function() {
+            let savedTheme = StorageHelper.get('theme') || 'light';
+            const iconSun = document.getElementById('iconSun');
+            const iconMoon = document.getElementById('iconMoon');
+            if (savedTheme === 'light') {
+                document.documentElement.setAttribute('data-theme', 'light');
+                if(iconSun) iconSun.style.display = 'block'; 
+                if(iconMoon) iconMoon.style.display = 'none';
+            } else {
+                document.documentElement.removeAttribute('data-theme');
+                if(iconSun) iconSun.style.display = 'none'; 
+                if(iconMoon) iconMoon.style.display = 'block';
+            }
+        };
+
+        // === 4. FUNGSI KATALOG ===
+        function renderCatalog(filterText = "") {
+            const mainContainer = document.getElementById('catalog-container');
+            const noResults = document.getElementById('noResults');
+            if(!mainContainer) return;
+            mainContainer.innerHTML = ''; 
+            let hasResults = false;
+            let delayCounter = 3;
+
+            toolsData.forEach(section => {
+                const filteredTools = section.tools.filter(tool => 
+                    tool.name.toLowerCase().includes(filterText) || tool.desc.toLowerCase().includes(filterText)
+                );
+
+                if (filteredTools.length > 0) {
+                    hasResults = true;
+                    const sectionDiv = document.createElement('div');
+                    sectionDiv.className = `tool-category-wrapper animate-fade-in`;
+                    sectionDiv.style.animationDelay = `${delayCounter * 0.1}s`;
+                    delayCounter++;
+
+                    const headerIconHtml = `<span class="emoji-icon">${section.icon}</span>`;
+                    const headerHtml = `<div class="tool-category-header"><div class="tool-icon-wrapper" style="width: 44px; height: 44px; border-radius: 14px;">${headerIconHtml}</div><span>${section.title}</span></div>`;
+                    let cardsHtml = '<div class="tools-grid">';
+                    
+                    filteredTools.forEach(tool => {
+                        if (tool.addSeparatorBefore) {
+                            cardsHtml += `<div style="grid-column: 1 / -1; height: 1px; background: linear-gradient(90deg, transparent, var(--card-border-highlight), transparent); margin: 20px 0; opacity: 0.6;"></div>`;
+                        }
+                        const toolIconHtml = `<span class="emoji-icon">${tool.icon}</span>`;
+                        // Kartu juga dipaku onclick-nya
+                        cardsHtml += `
+                            <div class="ai-tool-card" onclick="openTool('${tool.name}', '${tool.icon}', '${tool.link}')">
+                                <div class="tool-content-top">
+                                    <div class="tool-icon-wrapper">${toolIconHtml}</div>
+                                    <div class="flex-1"><h3 class="tool-name">${tool.name}</h3><p class="tool-desc">${tool.desc}</p></div>
+                                </div>
+                                <div class="btn-access"><span>Akses Alat</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></div>
+                            </div>
+                        `;
+                    });
+                    cardsHtml += '</div>';
+                    sectionDiv.innerHTML = headerHtml + cardsHtml;
+                    mainContainer.appendChild(sectionDiv);
+                }
+            });
+            if(noResults) noResults.style.display = hasResults ? 'none' : 'block';
+        }
+
+        function openTool(name, icon, link) { 
+            saveToolHistory(name, icon, link); 
+            if(link) window.open(link, '_blank'); 
+        }
+
+        // === 5. FUNGSI RIWAYAT ===
+        function clearHistory() { 
+            StorageHelper.remove(HISTORY_KEY); 
+            renderHistory([]); 
+        }
+        
+        function loadHistory() { 
+            renderHistory(JSON.parse(StorageHelper.get(HISTORY_KEY)) || []); 
+        }
+        
+        function saveToolHistory(name, icon, link) {
+            let history = JSON.parse(StorageHelper.get(HISTORY_KEY)) || [];
+            history = history.filter(item => item.name !== name);
+            history.unshift({ name, icon, link });
+            if (history.length > 5) history.pop();
+            StorageHelper.set(HISTORY_KEY, JSON.stringify(history));
+            renderHistory(history);
+        }
+
+        function renderHistory(history) {
+            const historySection = document.getElementById('history-section');
+            const historyList = document.getElementById('historyList');
+            if(!historySection || !historyList) return;
+            historyList.innerHTML = '';
+            if (history.length === 0) { historySection.style.display = 'none'; return; }
+            historySection.style.display = 'block';
+            history.forEach(item => {
+                const a = document.createElement('a');
+                a.href = "javascript:void(0)"; 
+                a.classList.add('history-item');
+                const historyIconHtml = `<span class="emoji-icon" style="font-size: 1rem; filter: none;">${item.icon}</span>`;
+                a.innerHTML = `${historyIconHtml} ${item.name}`;
+                a.onclick = () => openTool(item.name, item.icon, item.link); // Dipaku onclick
+                historyList.appendChild(a);
+            });
+        }
+
+        // === 6. FUNGSI CHAT AIMIN ===
+        function getGuideButtonHTML() {
+            return `<a href="${pedomanLink}" target="_blank" class="guide-btn"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>Buku Pedoman</a>`;
+        }
+
+        function getAdminButtonHTML() {
+            return `<a href="${whatsappLink}" target="_blank" class="wa-btn"><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>Hubungi via WhatsApp</a>`;
+        }
+
+        function addMessage(text, sender) {
+            const chatArea = document.getElementById('chatArea');
+            if(!chatArea) return;
+            const msgDiv = document.createElement('div');
+            msgDiv.classList.add('chat-bubble', sender === 'bot' ? 'chat-bot' : 'chat-user');
+            msgDiv.innerHTML = text; chatArea.appendChild(msgDiv); chatArea.scrollTop = chatArea.scrollHeight;
+        }
+
+        function showTypingIndicator() {
+            if (isTyping) return;
+            isTyping = true;
+            const chatArea = document.getElementById('chatArea');
+            if(!chatArea) return;
+            const indicator = document.createElement('div'); indicator.id = 'typingIndicator'; indicator.className = 'typing-indicator';
+            indicator.innerHTML = '<div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div>';
+            chatArea.appendChild(indicator); chatArea.scrollTop = chatArea.scrollHeight;
+        }
+        
+        function removeTypingIndicator() { const ind = document.getElementById('typingIndicator'); if (ind) ind.remove(); isTyping = false; }
+        function clearActions() { const a = document.getElementById('chatActions'); if(a) a.innerHTML = ''; }
+
+        function showInitialOptions() {
+            clearActions();
+            const chatActions = document.getElementById('chatActions');
+            if(!chatActions) return;
+            [{text: "Jelaskan Fitur", action: "explain"}, {text: "Buku Pedoman", action: "guide"}, {text: "Hubungi Admin", action: "contact"}].forEach(opt => {
+                const btn = document.createElement('button'); btn.classList.add('action-btn'); btn.innerText = opt.text;
+                btn.onclick = () => handleAction(opt.action, opt.text); // Dipaku onclick
+                chatActions.appendChild(btn);
+            });
+        }
+
         function processUserText(text) {
             const lowerText = text.toLowerCase();
             let matchedCategory = null;
@@ -577,13 +634,14 @@
 
         function handleSend() {
             const userInput = document.getElementById('userInput');
-            if (isTyping) return; 
+            if (!userInput || isTyping) return; 
             const text = userInput.value.trim();
             if (text) { addMessage(text, 'user'); userInput.value = ''; clearActions(); processUserText(text); }
         }
 
         function handleAction(action, textBtn, fromProcess = false) {
             const chatArea = document.getElementById('chatArea');
+            if(!chatArea) return;
             if(textBtn) addMessage(textBtn, 'user');
             clearActions();
             if(!fromProcess) showTypingIndicator();
@@ -637,32 +695,21 @@
             }, 500);
         }
 
+        // === 7. KONEKSI KE API VERCEL / GAS ===
         function getDeviceInfo() {
             const ua = navigator.userAgent;
             let os = "Unknown OS";
-            
             if (ua.indexOf("Windows") !== -1) os = "Windows";
             else if (ua.indexOf("iPhone") !== -1 || ua.indexOf("iPad") !== -1) os = "iOS";
             else if (ua.indexOf("Mac") !== -1) os = "Mac";
             else if (ua.indexOf("Android") !== -1) os = "Android";
-            else if (ua.indexOf("CrOS") !== -1) os = "Chrome OS";
-            else if (ua.indexOf("Linux") !== -1) os = "Linux";
-
             let browser = "Unknown Browser";
-            
-            if (ua.indexOf("FBAV") !== -1 || ua.indexOf("Instagram") !== -1 || ua.indexOf("WhatsApp") !== -1) browser = "In-App Browser";
-            else if (ua.indexOf("OPR/") !== -1 || ua.indexOf("Opera") !== -1) browser = "Opera";
-            else if (ua.indexOf("Edg/") !== -1 || ua.indexOf("EdgiOS") !== -1) browser = "Edge";
-            else if (ua.indexOf("SamsungBrowser") !== -1) browser = "Samsung Internet";
-            else if (ua.indexOf("UCBrowser") !== -1) browser = "UC Browser";
-            else if (ua.indexOf("Firefox") !== -1 || ua.indexOf("FxiOS") !== -1) browser = "Firefox";
-            else if (ua.indexOf("Chrome") !== -1 || ua.indexOf("CriOS") !== -1) browser = "Chrome";
-            else if (ua.indexOf("Safari") !== -1 && ua.indexOf("Chrome") === -1) browser = "Safari";
-
+            if (ua.indexOf("Chrome") !== -1 || ua.indexOf("CriOS") !== -1) browser = "Chrome";
+            else if (ua.indexOf("Safari") !== -1) browser = "Safari";
             return `${os} ${browser}`;
         }
         
-        window.handleLogin = function() {
+        function handleLogin() {
             const email = document.getElementById('emailInput').value.trim();
             const btn = document.getElementById('loginBtn');
             const error = document.getElementById('loginError');
@@ -714,9 +761,10 @@
 
             function successLogin(userName) {
                 try { StorageHelper.set('aimin_user_name', userName); } catch(e) {}
-                document.getElementById('login-overlay').style.opacity = '0';
+                const overlay = document.getElementById('login-overlay');
+                if(overlay) overlay.style.opacity = '0';
                 setTimeout(() => {
-                    document.getElementById('login-overlay').style.display = 'none';
+                    if(overlay) overlay.style.display = 'none';
                     renderCatalog(); 
                     initAimin(userName);
                     loadHistory();
@@ -729,7 +777,7 @@
                 btn.disabled = false;
                 btn.innerText = "Masuk Sekarang";
             }
-        };
+        }
     </script>
 </body>
 </html>
