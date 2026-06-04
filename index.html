@@ -242,9 +242,9 @@
                 </svg>
             </div>
             <h2 class="login-title">Akses Eksklusif</h2>
-            <p class="login-desc">Masukkan email yang telah kamu daftarkan. <b>Sekarang kamu punya asisten AI Satset</b>, semoga bermanfaat!</p>
+            <p class="login-desc">Masukkan email yang telah kamu daftarkan. Sekarang kamu punya asisten AI Satset, semoga bermanfaat!</p>
             <input type="email" id="emailInput" class="email-input" placeholder="contoh@email.com">
-            <button id="loginBtn" class="btn-login">Masuk Sekarang</button>
+            <button id="loginBtn" onclick="handleLogin()" class="btn-login">Masuk Sekarang</button>
             <p id="loginError" class="login-error"></p>
         </div>
     </div>
@@ -453,7 +453,6 @@
                 }
             });
 
-            document.getElementById('loginBtn').addEventListener('click', handleLogin);
             document.getElementById('emailInput').addEventListener('keypress', (e) => { if (e.key === 'Enter') handleLogin(); });
             document.getElementById('searchInput').addEventListener('input', (e) => renderCatalog(e.target.value.trim().toLowerCase()));
             document.getElementById('clearHistoryBtn').addEventListener('click', () => { 
@@ -737,8 +736,11 @@
             const endpoint = `${API_URL}?email=${encodeURIComponent(email)}&deviceId=${encodeURIComponent(deviceId)}`;
             
             fetch(endpoint)
-                .then(response => {
-                    if (!response.ok) throw new Error("API tidak ditemukan (Mungkin sedang di Canvas)");
+                .then(async response => {
+                    if (!response.ok) {
+                        const errText = await response.text();
+                        throw new Error(`Error Server: ${errText}`);
+                    }
                     return response.json();
                 })
                 .then(data => {
@@ -749,8 +751,8 @@
                     }
                 })
                 .catch(err => {
-                    console.warn("Bypass Login untuk Canvas/Local:", err);
-                    setTimeout(() => { successLogin("Pengguna Vercel/Canvas"); }, 800);
+                    console.error("API Error Detail:", err);
+                    showError("Error: API Route belum siap atau salah pengaturan Vercel!");
                 });
 
             function successLogin(userName) {
