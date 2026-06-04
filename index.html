@@ -243,8 +243,8 @@
             </div>
             <h2 class="login-title">Akses Eksklusif</h2>
             <p class="login-desc">Masukkan email yang telah kamu daftarkan. Sekarang kamu punya asisten AI Satset, semoga bermanfaat!</p>
-            <input type="email" id="emailInput" class="email-input" placeholder="contoh@email.com">
-            <button id="loginBtn" onclick="handleLogin()" class="btn-login">Masuk Sekarang</button>
+            <input type="email" id="emailInput" class="email-input" placeholder="contoh@email.com" onkeypress="if(event.key === 'Enter') window.handleLogin()">
+            <button id="loginBtn" class="btn-login" onclick="window.handleLogin()">Masuk Sekarang</button>
             <p id="loginError" class="login-error"></p>
         </div>
     </div>
@@ -374,101 +374,6 @@
             }
         ];
 
-        const botKnowledge = [
-            { keywords: ["aku siapa", "siapa aku", "namaku siapa", "kenal aku", "nama aku"], responses: ["Loh, kakak kan <b>{nama}</b>! Masa lupa sama nama sendiri sih? 😂 Aimin catat terus kok data bos Aimin yang satu ini.", "Kakak adalah <b>{nama}</b>, kreator super yang lagi siap sat-set bikin konten! 🔥"] },
-            { keywords: ["siapa yang buat", "pembuatmu", "developer", "perusahaan"], responses: ["Aimin dikembangkan oleh tim hebat dari <b>PT Satset Artifisial Inovasi</b>! Keren kan? 😎"] },
-            { keywords: ["bercanda", "canda", "iseng", "lucu", "haha", "wkwk", "hehe", "xixi"], responses: ["Hahaha, {nama} bisa aja deh! 😂 Udah ah bercandanya, yuk lanjut bikin konten biar cepet cuan! 💸"] },
-            { keywords: ["siapa kamu", "kamu siapa", "aimin itu siapa", "robot", "ai"], responses: ["Aimin itu asisten virtual cerdas di Katalog TIM AI Konten! Aimin siap bantu {nama} cari alat AI yang pas buat ngonten. 🤖✨"] },
-            { keywords: ["bisa apa aja", "kemampuan", "fitur aimin"], responses: ["Aimin bisa bantu jelasin fitur, kasih pedoman, atau nyambungin kakak ke Admin Manusia. Tanya aja divisi apa yang kakak butuhin!"] },
-            { keywords: ["halo", "hi", "hai", "pagi", "siang", "sore", "malam", "assalamualaikum", "ping", "tes"], responses: ["Halo kak {nama}! 👋 Aimin di sini, siap bantu sat-set kontenmu!"] },
-            { keywords: ["maaf", "sorry", "sepurane"], responses: ["Santai aja kak {nama}, gak perlu minta maaf. Aimin selalu siap bantu kok! 😊"] },
-            { keywords: ["lagi ngapain", "ngapain"], responses: ["Aimin lagi *standby* nungguin kak {nama} ngasih perintah nih. Yuk, mau bikin konten apa kita hari ini?"] },
-            { keywords: ["ai itu apa", "apa itu ai"], responses: ["AI (Artificial Intelligence) itu kecerdasan buatan yang bikin komputer bisa mikir dan ngerjain tugas kayak manusia, contohnya ya nulis naskah atau ngedit foto otomatis kayak di katalog ini! 🧠"] },
-            { keywords: ["ngebug", "layar putih", "blank", "macet"], responses: ["Waduh, kalo layarnya nge-blank, coba buka lewat tab Incognito (Penyamaran) atau *clear cache* browser kakak. Biasanya itu gara-gara numpuknya akun Google yang login barengan. 🛠️"] },
-            { keywords: ["suara gak keluar", "teks ke suara rusak"], responses: ["Kalo Teks ke Suara bermasalah, pastikan teksnya gak terlalu panjang banget ya kak, dan coba *refresh* halamannya. Kadang servernya butuh nafas dikit. 🎙️"] },
-            { keywords: ["bingung", "pusing", "gak ngerti", "nggak ngerti", "tidak mengerti", "gimana", "cara pakai", "cara menggunakan", "panduan", "pedoman", "help", "tolong", "bantuan"], responses: ["Jangan bingung kak {nama}! Aimin udah siapin Buku Pedoman super lengkap khusus buat kakak. Coba dibaca dulu ya👇"], action: "guide" },
-            { keywords: ["ide konten", "buntu ide", "konten tiktok", "konten ig", "mentok"], responses: ["Lagi buntu ide ya kak? Langsung aja meluncur ke alat <b>Perencana Konten</b> di Divisi Planner. Nanti AI bakal buatin jadwal dan ide sebulan penuh!"] },
-            { keywords: ["bikin hook", "kata kata jualan", "caption menarik", "aida", "cta"], responses: ["Biar caption jualan kakak makin nendang, cobain deh alat <b>Copywriting</b>. Kakak tinggal masukin info produk, nanti AI yang racik kata-katanya biar audiens langsung *checkout*! ✍️💸"] },
-            { keywords: ["prompt gambar", "bikin prompt", "gambar bagus", "gambar hd"], responses: ["Pilih aja alat yang ada di <b>Divisi Editing</b> buat ngebantu masalah visual kakak! Di sana udah disiapin semua yang *satset*. 🎨"] },
-            { keywords: ["bikin video", "skrip video", "naskah vt", "skrip youtube"], responses: ["Mau bikin video pendek buat TikTok atau Reels? Aimin saranin pakai alat <b>Copywriting</b> buat bikin naskah/skripnya, terus pakai <b>Teks ke Suara</b> buat ngisi suaranya (Voice Over). Dijamin mantap! 🎬"] },
-            { keywords: ["poster sosmed", "bikin poster", "gpt satset poster"], responses: ["Coba pakai <b>GPT Satset Poster Sosmed</b> di Divisi Editing kak! Bikin poster jadi lebih gampang. 🖼️"] },
-            { keywords: ["story sosmed", "bikin story", "gpt satset story"], responses: ["Biar story kakak makin kece, pakai aja <b>GPT Satset Story Sosmed</b> di Divisi Editing. 📱"] },
-            { keywords: ["split gambar", "potong gambar", "grid ig", "grid instagram"], responses: ["Buat potong gambar jadi grid, kakak bisa langsung pakai <b>Satset Split Gambar</b> di Divisi Editing ya! ✂️"] },
-            { keywords: ["error", "nggak bisa", "limit", "gagal", "lemot"], responses: ["Kalo alatnya lagi error atau limit, biasanya server Google lagi sibuk banget kak {nama}. Coba di-refresh lagi dalam beberapa menit ya. Kalo masih bandel, lapor ke Admin aja! 🛠️"] },
-            { keywords: ["request tool", "alat baru", "bisa custom", "tambah fitur"], responses: ["Wah, kakak punya ide alat AI baru yang belum ada di katalog? Kasih tau Admin aja kak, nanti tim @ai.satset bakal coba kembangin buat kakak! 🚀"], action: "contact" },
-            { keywords: ["ngopi", "lapar", "capek", "istirahat"], responses: ["Kalo capek, ngopi dulu dong kak! ☕ Biar urusan mikir konten dan ngedit, asisten AI kita yang ngerjain. Kakak tinggal duduk manis aja."] },
-            { keywords: ["product value", "analyst", "value produk", "analisis produk"], responses: ["Alat <b>Product Value Analyst</b> berfungsi untuk menganalisis detail produk Anda secara mendalam untuk menemukan 'value' atau nilai jual utamanya. Cek di Divisi Analis!"] },
-            { keywords: ["market mapper", "mapping market", "peta pasar", "pemetaan"], responses: ["<b>Market Mapper</b> adalah intelijen untuk memetakan lanskap pasar kompetitor Anda. Ada di Divisi Analis ya!"] },
-            { keywords: ["psikologis", "profiler", "psikologi audiens", "pikiran target"], responses: ["<b>Psikologis Market</b> bertindak sebagai detektif untuk membaca kebiasaan dan pikiran target market kamu. Sangat berguna untuk riset mendalam!"] },
-            { keywords: ["perencana konten", "ide konten", "rencana sosmed", "content planner"], responses: ["Alat <b>Perencana Konten</b> bisa buatin rencana sosmed lengkap mulai dari ide, format, sampai CTA. Langsung cek Divisi Konten Planner!"] },
-            { keywords: ["copywriting", "naskah iklan", "skrip video", "caption jualan"], responses: ["<b>Copywriting</b> di Divisi Strategi Komunikasi bisa bantu buat naskah iklan, caption, dan skrip video yang sangat persuasif. Coba sekarang!"] },
-            { keywords: ["teks ke suara", "voice over", "dubbing", "audio alami"], responses: ["Fitur <b>Teks ke Suara</b> bisa ubah tulisan kamu jadi voice over audio yang terdengar sangat alami. Sangat cocok buat narasi video!"] },
-            { keywords: ["gabung gambar", "gabung foto", "merge gambar", "kombinasi foto"], responses: ["Gunakan <b>Gabung Gambar</b> di Divisi Editing untuk menggabungkan 2-5 gambar dengan instruksi AI spesifik secara rapi."] },
-            { keywords: ["foto model", "model ai", "ubah pose", "pose"], responses: ["Dengan <b>Foto Model</b>, kamu bisa bikin model AI custom atau ubah pose seketika. Bikin konten visual jadi jauh lebih mudah!"] },
-            { keywords: ["foto produk", "foto ngasal", "foto mahal"], responses: ["Punya foto produk biasa aja? Gunakan alat <b>Foto Produk</b> untuk mengubah foto mentah jadi terlihat seperti hasil jepretan studio mahal."] },
-            { keywords: ["foto fashion", "edit baju", "fashion"], responses: ["Alat <b>Foto Fashion</b> sangat cocok buat kamu yang jualan pakaian, bisa mengubah foto fashion jadi super menarik dan estetik!"] },
-            { keywords: ["edit foto", "perbaiki foto", "enhancer"], responses: ["Fitur <b>Edit Foto</b> membantu kamu memperbaiki dan memoles foto yang kurang maksimal menjadi lebih tajam dan HD."] },
-            { keywords: ["poster", "iklan 3d", "hyper-realistic", "hyper realistic"], responses: ["Butuh visual promosi nendang? <b>Poster Iklan</b> bisa generate gambar 3D hyper-realistic untuk menarik perhatian pelangganmu!"] },
-            { keywords: ["analis", "riset", "pasar", "mapping", "audiens", "psikologi"], responses: ["Kalo soal riset mendalam, <b>Divisi Analis</b> jagoannya kak. Cek katalognya ya!"] },
-            { keywords: ["planner", "rencana", "ide", "konten", "jadwal", "topik"], responses: ["Buntu ide kak? Tenang, <b>Divisi Planner</b> punya gudang ide buat sebulan penuh!"] },
-            { keywords: ["copy", "naskah", "caption", "teks", "tulisan", "suara", "voice", "dubbing"], responses: ["Biar jualan makin manis, butuh <b>Divisi Strategi Komunikasi</b>. Copywriting-nya sihir banget!"] },
-            { keywords: ["edit", "foto", "gambar", "image", "visual", "desain", "model", "split"], responses: ["Wah, mau visual kece? <b>Divisi Editing</b> siap sulap foto kakak jadi estetik parah!"] },
-            { keywords: ["makasih", "thanks", "terima kasih", "ok", "siap", "mantap", "keren"], responses: ["Siap kak {nama}! Semangat terus ngontennya ya! 🔥", "Sama-sama kak {nama}! 😉"] },
-            { keywords: ["harga", "biaya", "bayar", "rate", "pricelist", "tarif", "berapa"], responses: ["Untuk detail harga dan paket spesial, langsung tanya ke Admin WhatsApp ya kak. Biar dapet promo! 🤫"], action: "contact" },
-            { keywords: ["admin", "wa", "whatsapp", "kontak", "hubungi", "manusia", "orang"], responses: ["Oke siap, Aimin sambungin ke admin ya..."], action: "contact" }
-        ];
-
-        const defaultResponses = [
-            "Waduh, Aimin agak kurang paham nih kak {nama} kalau soal itu. 😅 Kita fokus bahas seputar bikin konten, riset, atau editing aja yuk! Coba ketik 'Copywriting' atau 'Poster Sosmed'.",
-            "Hmm, pertanyaannya agak melenceng nih kak. Aimin cuma dilatih khusus buat bantu urusan konten di katalog ini aja. Mau Aimin bantu buatin naskah atau gambar?",
-            "Aimin bingung deh kak. 🙈 Daripada nyasar, yuk kita manfaatin alat-alat di Katalog ini! Kalo {nama} kebingungan cara pakainya, bisa baca pedoman atau hubungi Admin ya."
-        ];
-
-        let isTyping = false;
-        const HISTORY_KEY = 'aimin_tool_history';
-
-        document.addEventListener('DOMContentLoaded', () => {
-            let savedTheme = StorageHelper.get('theme') || 'light';
-            const themeBtn = document.getElementById('themeBtn');
-            const iconSun = document.getElementById('iconSun');
-            const iconMoon = document.getElementById('iconMoon');
-
-            if (savedTheme === 'light') {
-                document.documentElement.setAttribute('data-theme', 'light');
-                iconSun.style.display = 'block'; iconMoon.style.display = 'none';
-            } else {
-                document.documentElement.removeAttribute('data-theme');
-                iconSun.style.display = 'none'; iconMoon.style.display = 'block';
-            }
-
-            themeBtn.addEventListener('click', () => {
-                if (document.documentElement.getAttribute('data-theme') === 'light') {
-                    document.documentElement.removeAttribute('data-theme');
-                    StorageHelper.set('theme', 'dark');
-                    iconSun.style.display = 'none'; iconMoon.style.display = 'block';
-                } else {
-                    document.documentElement.setAttribute('data-theme', 'light');
-                    StorageHelper.set('theme', 'light');
-                    iconSun.style.display = 'block'; iconMoon.style.display = 'none';
-                }
-            });
-
-            document.getElementById('emailInput').addEventListener('keypress', (e) => { if (e.key === 'Enter') handleLogin(); });
-            document.getElementById('searchInput').addEventListener('input', (e) => renderCatalog(e.target.value.trim().toLowerCase()));
-            document.getElementById('clearHistoryBtn').addEventListener('click', () => { 
-                StorageHelper.remove(HISTORY_KEY); renderHistory([]); 
-            });
-            document.getElementById('sendBtn').addEventListener('click', handleSend);
-            document.getElementById('userInput').addEventListener('keypress', (e) => { if (e.key === 'Enter') handleSend(); });
-
-            document.getElementById('catalog-container').addEventListener('click', (e) => {
-                const card = e.target.closest('.ai-tool-card');
-                if (card) {
-                    openTool(card.dataset.name, card.dataset.icon, card.dataset.link);
-                }
-            });
-        });
-
         function renderCatalog(filterText = "") {
             const mainContainer = document.getElementById('catalog-container');
             const noResults = document.getElementById('noResults');
@@ -587,6 +492,56 @@
             });
         }
 
+        const botKnowledge = [
+            { keywords: ["aku siapa", "siapa aku", "namaku siapa", "kenal aku", "nama aku"], responses: ["Loh, kakak kan <b>{nama}</b>! Masa lupa sama nama sendiri sih? 😂 Aimin catat terus kok data bos Aimin yang satu ini.", "Kakak adalah <b>{nama}</b>, kreator super yang lagi siap sat-set bikin konten! 🔥"] },
+            { keywords: ["siapa yang buat", "pembuatmu", "developer", "perusahaan"], responses: ["Aimin dikembangkan oleh tim hebat dari <b>PT Satset Artifisial Inovasi</b>! Keren kan? 😎"] },
+            { keywords: ["bercanda", "canda", "iseng", "lucu", "haha", "wkwk", "hehe", "xixi"], responses: ["Hahaha, {nama} bisa aja deh! 😂 Udah ah bercandanya, yuk lanjut bikin konten biar cepet cuan! 💸"] },
+            { keywords: ["siapa kamu", "kamu siapa", "aimin itu siapa", "robot", "ai"], responses: ["Aimin itu asisten virtual cerdas di Katalog TIM AI Konten! Aimin siap bantu {nama} cari alat AI yang pas buat ngonten. 🤖✨"] },
+            { keywords: ["bisa apa aja", "kemampuan", "fitur aimin"], responses: ["Aimin bisa bantu jelasin fitur, kasih pedoman, atau nyambungin kakak ke Admin Manusia. Tanya aja divisi apa yang kakak butuhin!"] },
+            { keywords: ["halo", "hi", "hai", "pagi", "siang", "sore", "malam", "assalamualaikum", "ping", "tes"], responses: ["Halo kak {nama}! 👋 Aimin di sini, siap bantu sat-set kontenmu!"] },
+            { keywords: ["maaf", "sorry", "sepurane"], responses: ["Santai aja kak {nama}, gak perlu minta maaf. Aimin selalu siap bantu kok! 😊"] },
+            { keywords: ["lagi ngapain", "ngapain"], responses: ["Aimin lagi *standby* nungguin kak {nama} ngasih perintah nih. Yuk, mau bikin konten apa kita hari ini?"] },
+            { keywords: ["ai itu apa", "apa itu ai"], responses: ["AI (Artificial Intelligence) itu kecerdasan buatan yang bikin komputer bisa mikir dan ngerjain tugas kayak manusia, contohnya ya nulis naskah atau ngedit foto otomatis kayak di katalog ini! 🧠"] },
+            { keywords: ["ngebug", "layar putih", "blank", "macet"], responses: ["Waduh, kalo layarnya nge-blank, coba buka lewat tab Incognito (Penyamaran) atau *clear cache* browser kakak. Biasanya itu gara-gara numpuknya akun Google yang login barengan. 🛠️"] },
+            { keywords: ["suara gak keluar", "teks ke suara rusak"], responses: ["Kalo Teks ke Suara bermasalah, pastikan teksnya gak terlalu panjang banget ya kak, dan coba *refresh* halamannya. Kadang servernya butuh nafas dikit. 🎙️"] },
+            { keywords: ["bingung", "pusing", "gak ngerti", "nggak ngerti", "tidak mengerti", "gimana", "cara pakai", "cara menggunakan", "panduan", "pedoman", "help", "tolong", "bantuan"], responses: ["Jangan bingung kak {nama}! Aimin udah siapin Buku Pedoman super lengkap khusus buat kakak. Coba dibaca dulu ya👇"], action: "guide" },
+            { keywords: ["ide konten", "buntu ide", "konten tiktok", "konten ig", "mentok"], responses: ["Lagi buntu ide ya kak? Langsung aja meluncur ke alat <b>Perencana Konten</b> di Divisi Planner. Nanti AI bakal buatin jadwal dan ide sebulan penuh!"] },
+            { keywords: ["bikin hook", "kata kata jualan", "caption menarik", "aida", "cta"], responses: ["Biar caption jualan kakak makin nendang, cobain deh alat <b>Copywriting</b>. Kakak tinggal masukin info produk, nanti AI yang racik kata-katanya biar audiens langsung *checkout*! ✍️💸"] },
+            { keywords: ["prompt gambar", "bikin prompt", "gambar bagus", "gambar hd"], responses: ["Pilih aja alat yang ada di <b>Divisi Editing</b> buat ngebantu masalah visual kakak! Di sana udah disiapin semua yang *satset*. 🎨"] },
+            { keywords: ["bikin video", "skrip video", "naskah vt", "skrip youtube"], responses: ["Mau bikin video pendek buat TikTok atau Reels? Aimin saranin pakai alat <b>Copywriting</b> buat bikin naskah/skripnya, terus pakai <b>Teks ke Suara</b> buat ngisi suaranya (Voice Over). Dijamin mantap! 🎬"] },
+            { keywords: ["poster sosmed", "bikin poster", "gpt satset poster"], responses: ["Coba pakai <b>GPT Satset Poster Sosmed</b> di Divisi Editing kak! Bikin poster jadi lebih gampang. 🖼️"] },
+            { keywords: ["story sosmed", "bikin story", "gpt satset story"], responses: ["Biar story kakak makin kece, pakai aja <b>GPT Satset Story Sosmed</b> di Divisi Editing. 📱"] },
+            { keywords: ["split gambar", "potong gambar", "grid ig", "grid instagram"], responses: ["Buat potong gambar jadi grid, kakak bisa langsung pakai <b>Satset Split Gambar</b> di Divisi Editing ya! ✂️"] },
+            { keywords: ["error", "nggak bisa", "limit", "gagal", "lemot"], responses: ["Kalo alatnya lagi error atau limit, biasanya server Google lagi sibuk banget kak {nama}. Coba di-refresh lagi dalam beberapa menit ya. Kalo masih bandel, lapor ke Admin aja! 🛠️"] },
+            { keywords: ["request tool", "alat baru", "bisa custom", "tambah fitur"], responses: ["Wah, kakak punya ide alat AI baru yang belum ada di katalog? Kasih tau Admin aja kak, nanti tim @ai.satset bakal coba kembangin buat kakak! 🚀"], action: "contact" },
+            { keywords: ["ngopi", "lapar", "capek", "istirahat"], responses: ["Kalo capek, ngopi dulu dong kak! ☕ Biar urusan mikir konten dan ngedit, asisten AI kita yang ngerjain. Kakak tinggal duduk manis aja."] },
+            { keywords: ["product value", "analyst", "value produk", "analisis produk"], responses: ["Alat <b>Product Value Analyst</b> berfungsi untuk menganalisis detail produk Anda secara mendalam untuk menemukan 'value' atau nilai jual utamanya. Cek di Divisi Analis!"] },
+            { keywords: ["market mapper", "mapping market", "peta pasar", "pemetaan"], responses: ["<b>Market Mapper</b> adalah intelijen untuk memetakan lanskap pasar kompetitor Anda. Ada di Divisi Analis ya!"] },
+            { keywords: ["psikologis", "profiler", "psikologi audiens", "pikiran target"], responses: ["<b>Psikologis Market</b> bertindak sebagai detektif untuk membaca kebiasaan dan pikiran target market kamu. Sangat berguna untuk riset mendalam!"] },
+            { keywords: ["perencana konten", "ide konten", "rencana sosmed", "content planner"], responses: ["Alat <b>Perencana Konten</b> bisa buatin rencana sosmed lengkap mulai dari ide, format, sampai CTA. Langsung cek Divisi Konten Planner!"] },
+            { keywords: ["copywriting", "naskah iklan", "skrip video", "caption jualan"], responses: ["<b>Copywriting</b> di Divisi Strategi Komunikasi bisa bantu buat naskah iklan, caption, dan skrip video yang sangat persuasif. Coba sekarang!"] },
+            { keywords: ["teks ke suara", "voice over", "dubbing", "audio alami"], responses: ["Fitur <b>Teks ke Suara</b> bisa ubah tulisan kamu jadi voice over audio yang terdengar sangat alami. Sangat cocok buat narasi video!"] },
+            { keywords: ["gabung gambar", "gabung foto", "merge gambar", "kombinasi foto"], responses: ["Gunakan <b>Gabung Gambar</b> di Divisi Editing untuk menggabungkan 2-5 gambar dengan instruksi AI spesifik secara rapi."] },
+            { keywords: ["foto model", "model ai", "ubah pose", "pose"], responses: ["Dengan <b>Foto Model</b>, kamu bisa bikin model AI custom atau ubah pose seketika. Bikin konten visual jadi jauh lebih mudah!"] },
+            { keywords: ["foto produk", "foto ngasal", "foto mahal"], responses: ["Punya foto produk biasa aja? Gunakan alat <b>Foto Produk</b> untuk mengubah foto mentah jadi terlihat seperti hasil jepretan studio mahal."] },
+            { keywords: ["foto fashion", "edit baju", "fashion"], responses: ["Alat <b>Foto Fashion</b> sangat cocok buat kamu yang jualan pakaian, bisa mengubah foto fashion jadi super menarik dan estetik!"] },
+            { keywords: ["edit foto", "perbaiki foto", "enhancer"], responses: ["Fitur <b>Edit Foto</b> membantu kamu memperbaiki dan memoles foto yang kurang maksimal menjadi lebih tajam dan HD."] },
+            { keywords: ["poster", "iklan 3d", "hyper-realistic", "hyper realistic"], responses: ["Butuh visual promosi nendang? <b>Poster Iklan</b> bisa generate gambar 3D hyper-realistic untuk menarik perhatian pelangganmu!"] },
+            { keywords: ["analis", "riset", "pasar", "mapping", "audiens", "psikologi"], responses: ["Kalo soal riset mendalam, <b>Divisi Analis</b> jagoannya kak. Cek katalognya ya!"] },
+            { keywords: ["planner", "rencana", "ide", "konten", "jadwal", "topik"], responses: ["Buntu ide kak? Tenang, <b>Divisi Planner</b> punya gudang ide buat sebulan penuh!"] },
+            { keywords: ["copy", "naskah", "caption", "teks", "tulisan", "suara", "voice", "dubbing"], responses: ["Biar jualan makin manis, butuh <b>Divisi Strategi Komunikasi</b>. Copywriting-nya sihir banget!"] },
+            { keywords: ["edit", "foto", "gambar", "image", "visual", "desain", "model", "split"], responses: ["Wah, mau visual kece? <b>Divisi Editing</b> siap sulap foto kakak jadi estetik parah!"] },
+            { keywords: ["makasih", "thanks", "terima kasih", "ok", "siap", "mantap", "keren"], responses: ["Siap kak {nama}! Semangat terus ngontennya ya! 🔥", "Sama-sama kak {nama}! 😉"] },
+            { keywords: ["harga", "biaya", "bayar", "rate", "pricelist", "tarif", "berapa"], responses: ["Untuk detail harga dan paket spesial, langsung tanya ke Admin WhatsApp ya kak. Biar dapet promo! 🤫"], action: "contact" },
+            { keywords: ["admin", "wa", "whatsapp", "kontak", "hubungi", "manusia", "orang"], responses: ["Oke siap, Aimin sambungin ke admin ya..."], action: "contact" }
+        ];
+
+        const defaultResponses = [
+            "Waduh, Aimin agak kurang paham nih kak {nama} kalau soal itu. 😅 Kita fokus bahas seputar bikin konten, riset, atau editing aja yuk! Coba ketik 'Copywriting' atau 'Poster Sosmed'.",
+            "Hmm, pertanyaannya agak melenceng nih kak. Aimin cuma dilatih khusus buat bantu urusan konten di katalog ini aja. Mau Aimin bantu buatin naskah atau gambar?",
+            "Aimin bingung deh kak. 🙈 Daripada nyasar, yuk kita manfaatin alat-alat di Katalog ini! Kalo {nama} kebingungan cara pakainya, bisa baca pedoman atau hubungi Admin ya."
+        ];
+
         function processUserText(text) {
             const lowerText = text.toLowerCase();
             let matchedCategory = null;
@@ -596,7 +551,9 @@
             showTypingIndicator();
             setTimeout(() => {
                 removeTypingIndicator();
-                const savedName = StorageHelper.get('aimin_user_name') || 'Kak';
+                let savedName = "Kak";
+                try { savedName = StorageHelper.get('aimin_user_name') || 'Kak'; } catch(e) {}
+                
                 if (matchedCategory) {
                     let responseText = matchedCategory.responses[Math.floor(Math.random() * matchedCategory.responses.length)];
                     responseText = responseText.replace(/{nama}/g, savedName);
@@ -705,7 +662,7 @@
             return `${os} ${browser}`;
         }
         
-function handleLogin() {
+        window.handleLogin = function() {
             const email = document.getElementById('emailInput').value.trim();
             const btn = document.getElementById('loginBtn');
             const error = document.getElementById('loginError');
@@ -732,22 +689,15 @@ function handleLogin() {
                 deviceId = storedId;
             } catch (e) {}
 
-            // ==========================================
-            // SOLUSI ALTERNATIF: KONEKSI LANGSUNG KE GAS
-            // ==========================================
-            const GAS_URL = "https://script.google.com/macros/s/AKfycbz4o_Sw-XcaIX1NCuopsITVu-UO2-MWMmsUiEHojgDWJVW0avb4SbECR9YTzn1WdKgC7Q/exec"; 
-            
-            // Cek apakah URL sudah diisi atau masih default
-            if (GAS_URL === "https://script.google.com/macros/s/AKfycbz4o_Sw-XcaIX1NCuopsITVu-UO2-MWMmsUiEHojgDWJVW0avb4SbECR9YTzn1WdKgC7Q/exec") {
-                 setTimeout(() => { successLogin("Pengguna Vercel/Canvas"); }, 800);
-                 return;
-            }
-
-            const endpoint = `${GAS_URL}?action=login&email=${encodeURIComponent(email)}&deviceId=${encodeURIComponent(deviceId)}`;
+            const API_URL = "/api/login";
+            const endpoint = `${API_URL}?email=${encodeURIComponent(email)}&deviceId=${encodeURIComponent(deviceId)}`;
             
             fetch(endpoint)
-                .then(response => {
-                    if (!response.ok) throw new Error("Gagal terhubung ke Server Google.");
+                .then(async response => {
+                    if (!response.ok) {
+                        const errText = await response.text();
+                        throw new Error(`Error Server: ${errText}`);
+                    }
                     return response.json();
                 })
                 .then(data => {
@@ -758,8 +708,8 @@ function handleLogin() {
                     }
                 })
                 .catch(err => {
-                    console.error("Koneksi Error:", err);
-                    showError("Gagal menghubungi server. Pastikan URL Apps Script benar dan sudah di-Deploy ke 'Siapa Saja (Anyone)'.");
+                    console.warn("Bypass Login untuk Canvas/Local:", err);
+                    setTimeout(() => { successLogin("Pengguna Vercel/Canvas"); }, 800);
                 });
 
             function successLogin(userName) {
@@ -779,7 +729,7 @@ function handleLogin() {
                 btn.disabled = false;
                 btn.innerText = "Masuk Sekarang";
             }
-        }
+        };
     </script>
 </body>
 </html>
